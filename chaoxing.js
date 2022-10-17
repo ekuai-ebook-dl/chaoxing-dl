@@ -1,9 +1,10 @@
 // ==UserScript==
 // @name         chaoxing download
-// @version      0.2
+// @version      0.3
 // @description  超星课件下载
 // @author       KUAI
 // @match        *.edu.cn/knowledge/cards?*
+// @match        *.edu.cn/coursedata/toPreview?*
 // @grant        GPL
 // ==/UserScript==
 
@@ -11,7 +12,7 @@
   'use strict';
   const iframeList = document.getElementsByTagName("iframe")
   for (const e of iframeList) {
-    const data = JSON.parse(e.attributes.data.value);
+    const data = JSON.parse(e.attributes.data.value.replaceAll("'", "\""));
     const url = "//" + location.host + "/ananas/status/" + data.objectid;
     const req = new XMLHttpRequest();
     req.open("GET", url, true);
